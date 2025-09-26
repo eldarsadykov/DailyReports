@@ -1,7 +1,20 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.db.models import Q
 
 
-# Create your views here.
+@login_required
 def index(request):
-    context = {}
+    tasks = request.user.tasks.all().order_by('-created_at')
+    context = {'tasks': tasks}
     return render(request, 'tasks.html', context)
+
+
+@login_required
+def search_tasks(request):
+    query = request.GET.get('search', '')
+    tasks = request.user.tasks.filter(
+        Q(key__icontains=query) | Q(name__icontains=query)
+    )
+    context = {'tasks': tasks}
+    return render(request, 'partials/task-list.html', context)
