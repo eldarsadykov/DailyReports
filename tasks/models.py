@@ -22,7 +22,7 @@ class Task(models.Model):
     )
 
     class Meta:
-        unique_together = ('key', 'name')
-        
+        unique_together = ('user', 'key')
+
     def __str__(self):
-        return f"{self.key } {self.name} - {self.progress}%"
+        return f"{self.key} {self.name} - {self.progress}%"

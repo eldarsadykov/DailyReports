@@ -1,3 +1,5 @@
+from http.client import responses
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.db.models import Q
@@ -29,7 +31,7 @@ def search_tasks(request):
 @login_required
 @require_http_methods(['POST'])
 def create_task(request):
-    form = TaskForm(request.POST)
+    form = TaskForm(request.POST, initial={'user': request.user})
     if form.is_valid():
         task = form.save(commit=False)
         task.user = request.user
@@ -37,4 +39,9 @@ def create_task(request):
         context = {'task': task}
         response = render(request, 'partials/task-row.html', context)
         response['HX-Trigger'] = 'create-task-success'
+        return response
+    else:
+        response = render(request, 'partials/add-task-modal-form.html', {'form': form})
+        response['HX-Retarget'] = '#add-task-form'
+        response['HX-Reswap'] = 'outerHTML'
         return response
