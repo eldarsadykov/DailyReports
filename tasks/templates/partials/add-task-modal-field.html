@@ -1,0 +1,15 @@
+<div class="form-control w-full">
+    <label class="label">
+                    <span class="label-text">
+                        {{ label }}
+                    </span>
+    </label>
+
+    {{ field }}
+
+    {% if field.errors %}
+        <label class="label text-error">
+            {{ field.errors }}
+        </label>
+    {% endif %}
+</div>

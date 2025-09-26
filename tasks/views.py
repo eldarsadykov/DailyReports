@@ -2,11 +2,15 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.db.models import Q
 
+from tasks.forms import TaskForm
+
 
 @login_required
 def index(request):
     tasks = request.user.tasks.all().order_by('-created_at')
-    context = {'tasks': tasks}
+    form = TaskForm()
+    print(form)
+    context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks.html', context)
 
 
