@@ -5,15 +5,8 @@
     <div>
         <h1 class="text-4xl text-success mb-4">Task Manager</h1>
 
-        <form method="post" class="mb-4">
-            {% csrf_token %}
-            {% include "partials/add-task-modal-field.html" with label="Key" field=form.key %}
-            {% include "partials/add-task-modal-field.html" with label="Name" field=form.name %}
-            {% include "partials/add-task-modal-field.html" with label="Progress (%)" field=form.progress %}
-            <div class="mt-4">
-                <button class="btn btn-primary">Add Task</button>
-            </div>
-        </form>
+        <button class="btn btn-primary mb-4" onclick="task_modal.showModal()">Add New Task</button>
+        {% include 'partials/add-task-modal.html' %}
 
         <label class="input input-bordered flex items-center gap-2 mb-2">
             <input

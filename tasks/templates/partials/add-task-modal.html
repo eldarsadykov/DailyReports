@@ -1,0 +1,15 @@
+<dialog id="task_modal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">Add New Task</h3>
+        <form method="dialog" class="mb-4">
+            {% csrf_token %}
+            {% include "partials/add-task-modal-field.html" with label="Key" field=form.key %}
+            {% include "partials/add-task-modal-field.html" with label="Name" field=form.name %}
+            {% include "partials/add-task-modal-field.html" with label="Progress (%)" field=form.progress %}
+            <div class="modal-action">
+                <button type="button" class="btn" onclick="task_modal.close()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add Task</button>
+            </div>
+        </form>
+    </div>
+</dialog>
