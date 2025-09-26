@@ -15,6 +15,8 @@ def search_tasks(request):
     query = request.GET.get('search', '')
     tasks = request.user.tasks.filter(
         Q(key__icontains=query) | Q(name__icontains=query)
+    ).order_by(
+        '-created_at'
     )
     context = {'tasks': tasks}
     return render(request, 'partials/task-list.html', context)
