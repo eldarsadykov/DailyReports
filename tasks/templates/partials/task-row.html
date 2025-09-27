@@ -5,7 +5,7 @@
     <td>{{ task.created_at|date:"M d, Y" }}</td>
     <td>
         <button
-                class="btn btn-xs btn-primary"
+                class="btn btn-xs btn-warning"
                 hx-get="{% url 'edit-task' task.id %}"
                 hx-target="#edit-task-form"
                 hx-swap="outerHTML"
