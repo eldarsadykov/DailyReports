@@ -16,6 +16,6 @@ copyFileSync('node_modules/alpinejs/dist/cdn.min.js', 'tasks/static/js/alpinejs.
 
 // Build Tailwind
 console.log('🎨 Building Tailwind CSS...');
-execSync('npx tailwindcss -i src/input.css -o tasks/static/css/output.css --minify', { stdio: 'inherit' });
+execSync('tailwindcss -i src/input.css -o tasks/static/css/output.css --minify', { stdio: 'inherit' });
 
 console.log('✅ Build complete!');
