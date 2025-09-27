@@ -1,0 +1,17 @@
+<form
+        id="edit-task-form"
+        hx-post="{% url 'update-task' task.id|add:'0' %}"
+        hx-target="#task-{{ task.id }}"
+        hx-swap="outerHTML"
+        hx-on:update-task-success="edit_task_modal.close(); this.reset();"
+        class="mb-4"
+>
+    {% csrf_token %}
+    {% include "partials/task-form-field.html" with label="Key" field=form.key %}
+    {% include "partials/task-form-field.html" with label="Name" field=form.name %}
+    {% include "partials/task-form-field.html" with label="Progress (%)" field=form.progress %}
+    <div class="modal-action">
+        <button type="button" class="btn" onclick="edit_task_modal.close()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Done</button>
+    </div>
+</form>

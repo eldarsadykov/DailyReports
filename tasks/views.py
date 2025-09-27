@@ -48,6 +48,34 @@ def create_task(request):
 
 
 @login_required
+def edit_task(request, pk):
+    task = get_object_or_404(Task, pk=pk, user=request.user)
+    form = TaskForm(instance=task)
+    context = {'task': task, 'form': form}
+    response = render(request, 'partials/edit-task-form.html', context)
+    response['HX-Trigger'] = 'edit-task-success'
+    return response
+
+
+@login_required
+@require_http_methods(['POST'])
+def update_task(request, pk):
+    task = get_object_or_404(Task, pk=pk, user=request.user)
+    form = TaskForm(request.POST, instance=task)
+    if form.is_valid():
+        task = form.save()
+        context = {'task': task}
+        response = render(request, 'partials/task-row.html', context)
+        response['HX-Trigger'] = 'update-task-success'
+        return response
+    else:
+        context = {'task': task, 'form': form}
+        response = render(request, 'partials/edit-task-form.html', context)
+        response['HX-Retarget'] = '#edit-task-form'
+        return response
+
+
+@login_required
 @require_http_methods(['DELETE'])
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk, user=request.user)
