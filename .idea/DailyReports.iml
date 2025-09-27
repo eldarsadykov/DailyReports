@@ -13,7 +13,12 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/tasks/static" />
+      <excludeFolder url="file://$MODULE_DIR$/tasks/static/css" />
+      <excludeFolder url="file://$MODULE_DIR$/tasks/static/js" />
+    </content>
     <orderEntry type="jdk" jdkName="Pipenv (DailyReports)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="alpinejs" level="application" />
