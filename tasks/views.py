@@ -41,7 +41,7 @@ def create_task(request):
         response['HX-Trigger'] = 'create-task-success'
         return response
     else:
-        response = render(request, 'partials/add-task-modal-form.html', {'form': form})
+        response = render(request, 'partials/add-task-form.html', {'form': form})
         response['HX-Retarget'] = '#add-task-form'
         response['HX-Reswap'] = 'outerHTML'
         return response
