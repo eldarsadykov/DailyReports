@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div 
+    <div
             x-data="{
             selected: [],
             copyToClipboard() {
@@ -25,46 +25,17 @@
                 }
             }"
     >
-        <h1 class="text-4xl text-accent mb-4">Task Manager</h1>
 
-        <button class="btn btn-primary mb-4" onclick="task_modal.showModal()">Add New Task</button>
-        <button
-                class="btn btn-secondary mb-4"
-                @click="copyToClipboard"
-        >
-            Copy To Clipboard
-        </button>
+        <h1 class="text-4xl text-accent mb-8">Daily Reports</h1>
+        <div class="flex justify-between items-center gap-4 mb-4">
+            <button class="btn btn-primary" onclick="task_modal.showModal()">Add New Task</button>
+            {% include 'partials/search.html' %}
+            <button class="btn btn-secondary" @click="copyToClipboard">Copy Report</button>
+        </div>
+        {% include 'partials/task-list.html' %}
+
         {% include 'partials/add-task-modal.html' %}
         {% include 'partials/edit-task-modal.html' %}
-
-        <label class="input input-bordered flex items-center gap-2 mb-2">
-            <input
-                    type="text"
-                    class="grow"
-                    placeholder="Search"
-                    name="search"
-                    hx-get="{% url 'search' %}"
-                    hx-trigger="keyup delay:500ms"
-                    hx-target="#task-list"
-                    hx-indicator="#spinner"
-                    hx-on::before-request="document.getElementById('task-list').style.opacity = 0.4"
-                    hx-on::after-request="document.getElementById('task-list').style.opacity = 1"
-            />
-            {% include 'partials/spinner.html' %}
-            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g
-                        stroke-linejoin="round"
-                        stroke-linecap="round"
-                        stroke-width="2.5"
-                        fill="none"
-                        stroke="currentColor"
-                >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.3-4.3"></path>
-                </g>
-            </svg>
-        </label>
-        {% include 'partials/task-list.html' %}
     </div>
 
 {% endblock %}
