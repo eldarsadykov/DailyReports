@@ -1,11 +1,11 @@
-from http.client import responses
-
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.views.decorators.http import require_http_methods
 
 from tasks.forms import TaskForm
+from .models import Task
 
 
 @login_required
@@ -45,3 +45,11 @@ def create_task(request):
         response['HX-Retarget'] = '#add-task-form'
         response['HX-Reswap'] = 'outerHTML'
         return response
+
+
+@login_required
+@require_http_methods(['DELETE'])
+def delete_task(request, pk):
+    task = get_object_or_404(Task, pk=pk, user=request.user)
+    task.delete()
+    return HttpResponse(status=200)
