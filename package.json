@@ -7,7 +7,7 @@
     "tailwindcss": "^4.1.13"
   },
   "scripts": {
-    "build": "./build.sh",
+    "build": "node build.mjs",
     "tailwind:watch": "tailwindcss -i src/input.css -o tasks/static/css/output.css --minify --watch"
   }
 }
