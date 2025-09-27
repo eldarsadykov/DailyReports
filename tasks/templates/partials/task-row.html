@@ -1,4 +1,18 @@
 <tr id="task-{{ task.id }}">
+    <td>
+        <label class="label">
+            <input
+                    type="checkbox"
+                    class="checkbox"
+                    :value="'- *{{ task.key }}*: {{ task.name }} - {{ task.progress }}%'"
+                    @change="
+                    $event.target.checked
+                        ? selected.push($event.target.value)
+                        : selected = selected.filter(x => x !== $event.target.value)
+                "
+            />
+        </label>
+    </td>
     <td>{{ task.key }}</td>
     <td>{{ task.name }}</td>
     <td>{{ task.progress }}%</td>

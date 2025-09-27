@@ -2,10 +2,38 @@
 
 {% block content %}
 
-    <div>
-        <h1 class="text-4xl text-success mb-4">Task Manager</h1>
+    <div 
+            x-data="{
+            selected: [],
+            copyToClipboard() {
+                if (this.selected.length === 0) {
+                    alert('No items selected.');
+                    return;
+                }
+                
+                const today = new Date().toLocaleDateString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                const text = `${today}\n\n${this.selected.join('\n')}`;
+                
+                navigator.clipboard.writeText(text)
+                    .then(() => alert('Copied:\n' + text))
+                    .catch(err => console.error('Copy failed:', err));
+                }
+            }"
+    >
+        <h1 class="text-4xl text-accent mb-4">Task Manager</h1>
 
         <button class="btn btn-primary mb-4" onclick="task_modal.showModal()">Add New Task</button>
+        <button
+                class="btn btn-secondary mb-4"
+                @click="copyToClipboard"
+        >
+            Copy To Clipboard
+        </button>
         {% include 'partials/add-task-modal.html' %}
         {% include 'partials/edit-task-modal.html' %}
 
