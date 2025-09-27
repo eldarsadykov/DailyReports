@@ -7,7 +7,7 @@
     "daisyui": "^5.1.24"
   },
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./tasks/static/css/input.css -o ./tasks/static/css/output.css",
-    "watch": "npx @tailwindcss/cli -i ./tasks/static/css/input.css -o ./tasks/static/css/output.css --watch"
+    "build": "tailwindcss -i src/input.css -o tasks/static/css/output.css --minify",
+    "watch": "tailwindcss -i src/input.css -o tasks/static/css/output.css --minify --watch"
   }
 }

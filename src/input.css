@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@plugin "daisyui";
+
+@source "../tasks/templates/**/*.{html,js}";
+@source "../tasks/forms.py";

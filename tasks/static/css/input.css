@@ -1,6 +1,0 @@
-@import "tailwindcss";
-
-@plugin "daisyui";
-
-@source "../../templates/**/*.{html,js}";
-@source "../../forms.py";
