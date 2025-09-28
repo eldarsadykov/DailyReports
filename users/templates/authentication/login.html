@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div>
+        <form action="" method="post" class="flex flex-col items-center">
+            {% csrf_token %}
+
+            <label class="label">Username</label>
+            <input type="text" class="input" placeholder="Username" name="username"/>
+
+            <label class="label">Password</label>
+            <input type="password" class="input" placeholder="Password" name="password"/>
+
+            <button class="btn btn-neutral mt-4">Sign in</button>
+        </form>
+    </div>
+{% endblock %}
