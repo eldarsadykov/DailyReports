@@ -8,6 +8,6 @@
   },
   "scripts": {
     "build": "node build.mjs",
-    "tailwind:watch": "tailwindcss -i src/input.css -o tasks/static/css/output.css --minify --watch"
+    "tailwind:watch": "tailwindcss -i src/input.css -o tasks/static/css/output.css --watch"
   }
 }
