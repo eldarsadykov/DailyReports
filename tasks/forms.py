@@ -33,7 +33,7 @@ class TaskForm(forms.ModelForm):
     def clean_key(self):
         key = self.cleaned_data['key']
         if Task.objects.filter(user=self.initial.get('user'), key=key).exists():
-            raise ValidationError('Task key already exists.')
+            raise ValidationError('Task with this Key already exists for this User.')
         return key
 
     class Meta:

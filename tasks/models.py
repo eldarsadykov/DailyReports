@@ -8,7 +8,7 @@ class User(AbstractUser):
 
 
 class Task(models.Model):
-    key = models.CharField(max_length=10, unique=True)
+    key = models.CharField(max_length=10)
     name = models.CharField(max_length=255)
     progress = models.IntegerField(
         default=0,
