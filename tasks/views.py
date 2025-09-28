@@ -33,12 +33,16 @@ def search_tasks(request):
 def create_task(request):
     form = TaskForm(request.POST, initial={'user': request.user})
     if form.is_valid():
+        is_first_task = not Task.objects.filter(user=request.user).exists()
         task = form.save(commit=False)
         task.user = request.user
         task.save()
         context = {'task': task}
         response = render(request, 'partials/task-row.html', context)
         response['HX-Trigger'] = 'create-task-success'
+        if is_first_task:
+            response['HX-Retarget'] = '#no-task-row'
+            response['HX-Reswap'] = 'outerHTML'
         return response
     else:
         response = render(request, 'partials/add-task-form.html', {'form': form})
@@ -80,4 +84,7 @@ def update_task(request, pk):
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk, user=request.user)
     task.delete()
+    was_last_task = not Task.objects.filter(user=request.user).exists()
+    if was_last_task:
+        return render(request, 'partials/no-task-row.html')
     return HttpResponse(status=200)
