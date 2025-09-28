@@ -1,14 +1,18 @@
-dj-config-url
 asgiref==3.9.1
 asttokens==3.0.0
 Brotli==1.1.0
 certifi==2025.7.14
+click==8.3.0
 decorator==5.2.1
 distlib==0.4.0
+dj-config-url==0.1.1
 dj-database-url==3.0.1
 Django==5.2.6
 executing==2.2.1
 filelock==3.18.0
+fj==0.0.4
+gunicorn==23.0.0
+h11==0.16.0
 ipython==9.5.0
 ipython_pygments_lexers==1.1.1
 jedi==0.19.2
@@ -28,6 +32,7 @@ setuptools==80.9.0
 sqlparse==0.5.3
 stack-data==0.6.3
 traitlets==5.14.3
+uvicorn==0.37.0
 virtualenv==20.31.2
 wcwidth==0.2.13
 whitenoise==6.11.0
