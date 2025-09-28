@@ -1,0 +1,22 @@
+databases:
+  - name: dailyreportsdb
+    plan: free 
+    databaseName: dailyreports_db
+    user: dailyreports_user
+
+services:
+  - type: web
+    plan: free
+    name: dailyreports
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn DailyReports.asgi:application -k uvicorn.workers.UvicornWorker'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dailyreportsdb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
