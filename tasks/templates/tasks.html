@@ -1,31 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
-    <div
-            x-data="{
-            selected: [],
-            copyToClipboard() {
-                if (this.selected.length === 0) {
-                    alert('No items selected.');
-                    return;
-                }
-                
-                const today = new Date().toLocaleDateString('ru-RU', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-                
-                const text = `${today}\n\n${this.selected.join('\n')}`;
-                
-                navigator.clipboard.writeText(text)
-                    .then(() => alert('Copied:\n' + text))
-                    .catch(err => console.error('Copy failed:', err));
-                }
-            }"
-    >
-
+    <div x-data="dailyReports">
         <h1 class="text-4xl text-accent mb-8">Daily Reports</h1>
         <div class="flex justify-between items-center gap-4 mb-4">
             <button class="btn btn-primary" onclick="task_modal.showModal()">Add New Task</button>
@@ -38,4 +17,9 @@
         {% include 'partials/edit-task-modal.html' %}
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/dailyReports.js' %}"></script>
 {% endblock %}
