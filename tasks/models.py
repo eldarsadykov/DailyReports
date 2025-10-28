@@ -15,6 +15,7 @@ class Task(models.Model):
         default=0,
         validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
+    hidden = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         User,

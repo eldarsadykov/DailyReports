@@ -10,7 +10,14 @@ from .models import Task
 
 @login_required
 def index(request):
-    tasks = request.user.tasks.all().order_by('-created_at')
+    show_hidden_tasks = 'show_hidden' in request.GET
+    
+    tasks = (
+        request.user.tasks.all()
+        if show_hidden_tasks
+        else request.user.tasks.filter(hidden=False)
+    ).order_by('-created_at')
+    
     form = TaskForm()
     context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks.html', context)
@@ -33,7 +40,7 @@ def search_tasks(request):
 def create_task(request):
     form = TaskForm(request.POST, initial={'user': request.user})
     if form.is_valid():
-        is_first_task = not Task.objects.filter(user=request.user).exists()
+        is_first_task = not Task.objects.filter(user=request.user, hidden=False).exists()
         task = form.save(commit=False)
         task.user = request.user
         task.save()
@@ -68,7 +75,6 @@ def update_task(request, pk):
     form = TaskForm(request.POST, instance=task)
     if form.is_valid():
         task = form.save()
-        print(task)
         context = {'task': task}
         response = render(request, 'partials/task-row.html', context)
         response['HX-Trigger'] = 'update-task-success'
@@ -85,7 +91,30 @@ def update_task(request, pk):
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk, user=request.user)
     task.delete()
-    was_last_task = not Task.objects.filter(user=request.user).exists()
+    was_last_task = not Task.objects.filter(user=request.user, hidden=False).exists()
     if was_last_task:
         return render(request, 'partials/no-task-row.html')
     return HttpResponse(status=200)
+
+
+@login_required
+@require_http_methods(['POST'])
+def show_hide_task(request, pk):
+    is_first_task = not Task.objects.filter(user=request.user, hidden=False).exists()
+
+    task = get_object_or_404(Task, pk=pk, user=request.user)
+    task.hidden = not task.hidden
+    task.save()
+
+    was_last_task = not Task.objects.filter(user=request.user, hidden=False).exists()
+
+    if task.hidden:
+        if was_last_task:
+            return render(request, 'partials/no-task-row.html')
+        return HttpResponse(status=200)
+    else:
+        context = {'task': task}
+        response = render(request, 'partials/task-row.html', context)
+        if is_first_task:
+            response['HX-Retarget'] = '#no-task-row'
+        return response

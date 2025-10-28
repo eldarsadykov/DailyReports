@@ -35,6 +35,19 @@
             Edit
         </button>
         <button
+                class="btn btn-xs"
+                hx-post="{% url 'show-hide-task' task.id %}"
+                hx-target="#task-{{ task.id }}"
+                hx-swap="outerHTML"
+                hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'
+        >
+            {% if task.hidden %}
+                Show
+            {% else %}
+                Hide
+            {% endif %}
+        </button>
+        <button
                 class="btn btn-xs btn-error"
                 hx-delete="{% url 'delete-task' task.id %}"
                 hx-target="#task-{{ task.id }}"
