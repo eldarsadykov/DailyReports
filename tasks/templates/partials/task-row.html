@@ -13,8 +13,14 @@
             />
         </label>
     </td>
-    <td>{{ task.key }}</td>
-    <td><a href="{{ task.url }}">{{ task.name }}</a></td>
+    <td>
+        {% if task.url %}
+            <a target="_blank" rel="noopener noreferrer" href="{{ task.url }}">{{ task.key }}</a>
+        {% else %}
+            {{ task.key }}
+        {% endif %}
+    </td>
+    <td>{{ task.name }}</td>
     <td>{{ task.progress }}%</td>
     <td>{{ task.created_at|date:"M d, Y" }}</td>
     <td>
