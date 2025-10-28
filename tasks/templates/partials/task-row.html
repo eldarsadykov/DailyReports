@@ -4,7 +4,7 @@
             <input
                     type="checkbox"
                     class="checkbox"
-                    :value="'- *{{ task.key }}*: {{ task.name }} - {{ task.progress }}%'"
+                    :value="'*{{ task.key }}*: {{ task.name }} - {{ task.progress }}%'"
                     @change="
                     $event.target.checked
                         ? selected.push($event.target.value)
@@ -14,7 +14,7 @@
         </label>
     </td>
     <td>{{ task.key }}</td>
-    <td>{{ task.name }}</td>
+    <td><a href="{{ task.url }}">{{ task.name }}</a></td>
     <td>{{ task.progress }}%</td>
     <td>{{ task.created_at|date:"M d, Y" }}</td>
     <td>

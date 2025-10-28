@@ -9,6 +9,7 @@
     {% csrf_token %}
     {% include "partials/task-form-field.html" with label="Key" field=form.key %}
     {% include "partials/task-form-field.html" with label="Name" field=form.name %}
+    {% include "partials/task-form-field.html" with label="URL" field=form.url %}
     {% include "partials/task-form-field.html" with label="Progress (%)" field=form.progress %}
     <div class="modal-action">
         <button type="button" class="btn" onclick="task_modal.close()">Cancel</button>

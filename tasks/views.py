@@ -68,6 +68,7 @@ def update_task(request, pk):
     form = TaskForm(request.POST, instance=task)
     if form.is_valid():
         task = form.save()
+        print(task)
         context = {'task': task}
         response = render(request, 'partials/task-row.html', context)
         response['HX-Trigger'] = 'update-task-success'

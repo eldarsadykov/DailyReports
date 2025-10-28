@@ -10,6 +10,7 @@ class User(AbstractUser):
 class Task(models.Model):
     key = models.CharField(max_length=10)
     name = models.CharField(max_length=255)
+    url = models.URLField(max_length=255, blank=True, default='')
     progress = models.IntegerField(
         default=0,
         validators=[MinValueValidator(0), MaxValueValidator(100)]
@@ -25,4 +26,4 @@ class Task(models.Model):
         unique_together = ('user', 'key')
 
     def __str__(self):
-        return f"{self.key} {self.name} - {self.progress}%"
+        return f"{self.key}: {self.name} - {self.progress}\nURL: {self.url}"

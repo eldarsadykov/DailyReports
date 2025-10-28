@@ -5,7 +5,7 @@ from tasks.models import Task
 
 
 class TaskForm(forms.ModelForm):
-    classString = 'input input-bordered w-full'
+    classString = 'input input-bordered w-full mb-4'
 
     key = forms.CharField(
         widget=forms.TextInput(attrs={
@@ -17,6 +17,12 @@ class TaskForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'class': classString,
             'placeholder': 'Task Name'})
+    )
+
+    url = forms.URLField(
+        widget=forms.TextInput(attrs={
+            'class': classString,
+            'placeholder': 'URL'})
     )
 
     progress = forms.IntegerField(
@@ -38,4 +44,4 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['key', 'name', 'progress']
+        fields = ['key', 'name', 'url', 'progress']
